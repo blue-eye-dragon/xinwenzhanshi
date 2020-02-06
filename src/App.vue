@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-button type="success" plain>成功按钮</el-button>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -8,6 +8,7 @@
 
 export default {
   name: 'app',
+  
 }
 </script>
 

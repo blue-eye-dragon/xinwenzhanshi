@@ -4,9 +4,12 @@
  //注册
  import Vue from 'vue'
  Vue.use(VueRouter)
+ import Login from '@/views/login'
  //初始化
  const router = new VueRouter({
-     routes: []
+     routes: [
+        {path:'/login',component:Login}
+     ]
  })
 //导出
 export default router
