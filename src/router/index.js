@@ -5,10 +5,12 @@
  import Vue from 'vue'
  Vue.use(VueRouter)
  import Login from '@/views/login'
+ import Home from '@/views/home'
  //初始化
  const router = new VueRouter({
      routes: [
-        {path:'/login',component:Login}
+        {path:'/login',component:Login},
+        {path:'/',component:Home}
      ]
  })
 //导出
