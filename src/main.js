@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import ElementUI from 'element-ui';
-
+import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css';
 //导入路由
 // import router from './router/index.js'
@@ -13,6 +13,7 @@ import router from '@/router'
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
+Vue.prototype.$http = axios
 
 new Vue({
   render: h => h(App),
