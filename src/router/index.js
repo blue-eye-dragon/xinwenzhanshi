@@ -8,6 +8,7 @@
  import Home from '@/views/home'
  import Welcome from '@/views/welcome'
  import Notfound from '@/views/404'
+ import auth from '@/utils/auth'
  //初始化
  const router = new VueRouter({
      routes: [
@@ -20,7 +21,11 @@
             ]
         },
         {path:'*',component:Notfound}
-     ]
+     ], 
+ })
+ router.beforeEach((to,from,next)=>{
+    if(to.path !== '/login' && !auth.getUser().token) return next('/login')
+    next()
  })
 //导出
 export default router

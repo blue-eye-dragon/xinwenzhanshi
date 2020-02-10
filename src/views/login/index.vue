@@ -23,7 +23,7 @@
 </template>
 
 <script>
-
+import auth from '@/utils/auth'
 export default {
   name: 'Login',
   data() {
@@ -71,6 +71,7 @@ export default {
                     'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
                     this.form
                 ).then(res=>{
+                    auth.setUser(res.data.data)
                     this.$router.push('/')
                 }).catch(()=>{
                     this.$message.error('手机号或验证码错误')
