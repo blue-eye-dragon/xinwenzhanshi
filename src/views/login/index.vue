@@ -4,7 +4,7 @@
           <img src="../../assets/logo_index.png" alt="">
           <el-form ref="form" :model="form" :rules="Rules">
               <el-form-item prop="mobile">
-                  <el-input v-model="form.mobile" placeholder="请输入手机号" ></el-input>
+                  <el-input v-model="form.mobile" placeholder="请输入手机号"></el-input>
               </el-form-item>
               <el-form-item prop="code">
                   <el-input v-model="form.code" placeholder="请输入验证码" style="width:240px;margin-right:8px" ></el-input>
@@ -36,8 +36,8 @@ export default {
       }
       return {
           form:{
-              mobile:'',
-              code:'',
+              mobile:'13911111111',
+              code:'246810',
 
           },
           Rules:{
@@ -64,19 +64,26 @@ export default {
       login(){
           //对整体表单进行验证
           //需要给整体的form元素添加ref属性，方便后续再vue中引用
-          this.$refs.form.validate((valid)=>{
+          this.$refs.form.validate(async (valid)=>{
               //valid值为true时，验证成功
-              if(valid){
-                this.$http.post(
-                    'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-                    this.form
-                ).then(res=>{
-                    auth.setUser(res.data.data)
-                    this.$router.push('/')
-                }).catch(()=>{
-                    this.$message.error('手机号或验证码错误')
-                })
-              }
+            //   if(valid){
+            //     this.$http.post(
+            //         'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+            //         this.form
+            //     ).then(res=>{
+            //         auth.setUser(res.data.data)
+            //         this.$router.push('/')
+            //     }).catch(()=>{
+            //         this.$message.error('手机号或验证码错误')
+            //     })
+            //   }
+            try {
+                const res = await this.$http.post('authorizations',this.form)
+                auth.setUser(res.data.data)
+                this.$router.push('/')
+            }catch (e){
+                this.$message.error('手机号或验证码错误')
+            }
           })
       }
   },
