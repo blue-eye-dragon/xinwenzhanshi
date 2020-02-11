@@ -9,8 +9,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 // ./ ../ 用这些方法去找对应的目录并不准确， 可以用vue.cli提供的——@来访问，相当于（src路径）
 //可以简写为以下的步骤
 import router from '@/router'
+import plugin from '@/plugin'
 
 Vue.use(ElementUI);
+Vue.use(plugin)
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

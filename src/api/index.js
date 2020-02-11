@@ -20,11 +20,13 @@ axios.interceptors.request.use(function (config) {
     return response;
   }, function (error) {
     // 对响应错误做点什么
-    //不能用this.$router.push('login),因为箭头函数的this指向有问题，不指向vue实例，
-    //$router 值得就是vue中的router，也就是之前在router中定义的路由
-    //所以可以引入router，来进行后续的操作
-    //也不能使用windos.location.href.这样会丢失一些路由的相关信息
-    router.push('/login')
+    if (error.response && error.response.status === '401') {
+        //不能用this.$router.push('login),因为箭头函数的this指向有问题，不指向vue实例，
+        //$router 值得就是vue中的router，也就是之前在router中定义的路由
+        //所以可以引入router，来进行后续的操作
+        //也不能使用windos.location.href.这样会丢失一些路由的相关信息
+        router.push('/login')
+    }
     return Promise.reject(error);
   });
   export default axios
