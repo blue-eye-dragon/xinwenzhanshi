@@ -1,9 +1,20 @@
 import axios from 'axios'
 import auth from '@/utils/auth'
 import router from '@/router'
+import JSONBINGINT from 'json-bigint'
 axios.defaults.baseURL='http://ttapi.research.itcast.cn/mp/v1_0/'
 //在此设置的请求头只是在渲染页面的时候会请求一次，如果在渲染钱存在token，则会设置，否则为undefined
 // axios.defaults.headers.Authorization = `Bearer ${auth.getUser().token}`
+axios.defaults.transformResponse = [data => {
+  try {
+    //配置转换响应格式
+    //由于data数据有可能不是JSON格式，这样就会报错，所以需要监控该数据
+    return JSONBINGINT.parse(data)
+  } catch(e){
+    //转换异常
+    return data
+  }
+}]
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     const user = auth.getUser()
