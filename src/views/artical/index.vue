@@ -45,11 +45,30 @@
     <el-card style="margin-top:20px">
       <div slot="header">根据筛选条件共查询到 0 条结果：</div>
       <el-table :data="articals" style="width: 100%">
-        <el-table-column label="封面"></el-table-column>
+        <el-table-column label="封面">
+          <template slot-scope="scope">
+            <el-image :src="scope.row.cover.images[0]" style="width:150px;height:100px">
+              <div slot="error">
+                <img src="../../assets/error.gif" alt />
+              </div>
+            </el-image>
+          </template>
+        </el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
-        <el-table-column label="状态"></el-table-column>
+        <el-table-column label="状态">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.status===0" type="info">标签三</el-tag>
+            <el-tag v-if="scope.row.status===1">标签一</el-tag>
+            <el-tag v-if="scope.row.status===2" type="success">标签二</el-tag>
+            <el-tag v-if="scope.row.status===3" type="warning">标签四</el-tag>
+            <el-tag v-if="scope.row.status===4" type="danger">标签五</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column label="发布时间" prop="pubdate"></el-table-column>
-        <el-table-column label="操作"></el-table-column>
+        <el-table-column label="操作" width="120px">
+          <el-button plain type="primary" icon="el-icon-edit" circle></el-button>
+          <el-button plain type="danger" icon="el-icon-delete" circle></el-button>
+        </el-table-column>
       </el-table>
       <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
     </el-card>
@@ -73,33 +92,29 @@ export default {
         channel_id: null,
         begin_pubdate: null,
         end_pubdate: null,
-        page:1,
-        per_page:20
+        page: 1,
+        per_page: 20
       },
-      channel_options: [
-        { label: "前端", value: 0 },
-        { label: "后端", value: 1 }
-      ],
-      // tableData:{},
+      channel_options: [],
+      // dataArr:{},
       // 日期范围数据 [起始日期,结束日期]
       // 但是选择完成日期范围后，可以根据这个数据给 begin_pubdate end_pubdate 赋值。
       dataArr: [],
-      articals:[]
+      articals: []
     };
   },
   created() {
-    this.getchannels()
-    this.getarticals()
+    this.getChannels();
+    this.getArticals();
   },
   methods: {
-    async getchannels(){
-      const res = await this.$http.get('channels')
-      this.channel_options = res.data.data.channels
+    async getChannels() {
+      const res = await this.$http.get("channels");
+      this.channel_options = res.data.data.channels;
     },
-    async getarticals(){
-      const res = await this.$http.get('articles',{params:this.filterData})
-      console.log(res);
-      this.articals = res.data.data.results
+    async getArticals() {
+      const res = await this.$http.get("articles", { params: this.filterData });
+      this.articals = res.data.data.results;
     }
   }
 };
