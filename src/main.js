@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 //可以简写为以下的步骤
 import router from '@/router'
 import plugin from '@/plugin'
+import '@/styles/index.less'
 
 Vue.use(ElementUI);
 Vue.use(plugin)

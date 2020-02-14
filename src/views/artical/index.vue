@@ -128,9 +128,9 @@ export default {
           type: 'warning'
         }).then(async() => {
           try {
-            this.$http.delete(`articles/${id}`)
-            this.$message.success='删除成功!'
-            thisthis.getArticals();
+           await this.$http.delete(`articles/${id}`)
+            this.$message.success('删除成功!')
+            this.getArticals();
           }catch(e){
             this.$message.error('删除失败')
           }

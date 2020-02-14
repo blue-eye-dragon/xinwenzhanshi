@@ -10,6 +10,7 @@
  import Notfound from '@/views/404'
  import auth from '@/utils/auth'
  import Artical from '@/views/artical'
+ import Images from '@/views/images'
  //初始化
  const router = new VueRouter({
      routes: [
@@ -20,6 +21,7 @@
             children:[
                 {path:'/',component:Welcome},
                 {path:'/artical',component:Artical},
+                {path:'/image',component:Images}
             ]
         },
         {path:'*',component:Notfound}
