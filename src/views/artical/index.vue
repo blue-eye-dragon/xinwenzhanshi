@@ -19,14 +19,16 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="频道 ：">
-          <el-select @change="changeChannel" v-model="filterData.channel_id" placeholder="请选择" clearable>
+          <!-- <el-select @change="changeChannel" v-model="filterData.channel_id" placeholder="请选择" clearable>
             <el-option
               v-for="item in channel_options"
               :key="item.id"
               :label="item.name"
               :value="item.id"
             ></el-option>
-          </el-select>
+          </el-select> -->
+          <my-channel v-model="filterData.channel_id"></my-channel>
+          <!-- <my-channel :value="filterData.channel_id" @input="filterData.channel_id=$event"></my-channel> -->
         </el-form-item>
         <el-form-item label="日期 ：">
           <el-date-picker
@@ -117,7 +119,7 @@ export default {
     };
   },
   created() {
-    this.getChannels();
+    // this.getChannels();
     this.getArticals();
   },
   methods: {
@@ -140,11 +142,11 @@ export default {
     toEditArtical(id){
       this.$router.push(`/publish?id=${id}`)
     },
-    changeChannel(){
-      if(this.filterData.channel_id === ''){
-        this.filterData.channel_id =null
-      }
-    },
+    // changeChannel(){
+    //   if(this.filterData.channel_id === ''){
+    //     this.filterData.channel_id =null
+    //   }
+    // },
     search(){
       this.filterData.page=1
       this.getArticals();
@@ -162,10 +164,10 @@ export default {
         this.filterData.end_pubdate = null;
       }
     },
-    async getChannels() {
-      const res = await this.$http.get("channels");
-      this.channel_options = res.data.data.channels;
-    },
+    // async getChannels() {
+    //   const res = await this.$http.get("channels");
+    //   this.channel_options = res.data.data.channels;
+    // },
     async getArticals() {
       const res = await this.$http.get("articles", { params: this.filterData });
       this.articals = res.data.data.results;
