@@ -12,6 +12,8 @@
  import Artical from '@/views/artical'
  import Images from '@/views/images'
  import Publish from '@/views/publish'
+ import Comment from '@/views/comment'
+ import Fans from '@/views/fans'
  //初始化
  const router = new VueRouter({
      routes: [
@@ -24,6 +26,8 @@
                 {path:'/artical',component:Artical},
                 {path:'/image',component:Images},
                 {path:'/publish',component:Publish},
+                {path:'/comment',component:Comment},
+                {path:'/fans',component:Fans},
             ]
         },
         {path:'*',component:Notfound}
